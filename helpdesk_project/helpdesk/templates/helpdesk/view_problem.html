@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Problem</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <h2>View Problem</h2>
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">{{ problem.name }}</h5>
+                <p class="card-text"><strong>Description:</strong> {{ problem.description }}</p>
+                <p class="card-text"><strong>Phone:</strong> {{ problem.phone }}</p>
+                <p class="card-text"><strong>Email:</strong> {{ problem.email }}</p>
+                <p class="card-text"><strong>Priority:</strong> {{ problem.priority }}</p>
+                <p class="card-text"><strong>Status:</strong> {{ problem.status }}</p>
+                <p class="card-text"><strong>Assigned User:</strong> {{ problem.assigned_user }}</p>
+                <p class="card-text"><strong>Resolved User:</strong> {{ problem.resolved_user }}</p>
+            </div>
+        </div>
+        <br>
+        <a href="{% url 'problem_list' %}" class="btn btn-primary">Back to Problem List</a>
+    </div>
+</body>
+</html>

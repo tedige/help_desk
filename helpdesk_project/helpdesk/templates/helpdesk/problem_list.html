@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Problem List</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #ffffff;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .table {
+            margin-top: 20px;
+        }
+
+        .table th {
+            text-align: center;
+        }
+
+        .btn-edit {
+            background-color: #ffc107;
+            color: #fff;
+        }
+
+        .btn-view {
+            background-color: #17a2b8;
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Problem List</h2>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Description</th>
+                    <th>Priority</th>
+                    <th>Status</th>
+                    <th>Assigned User</th>
+                    <th>Resolved User</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for problem in problems %}
+                    {% if user.is_superuser or user == problem.assigned_user %}
+                        <tr>
+                            <td>{{ problem.description }}</td>
+                            <td>{{ problem.get_priority_display }}</td>
+                            <td>{{ problem.get_status_display }}</td>
+                            <td>
+                                {% if problem.assigned_user %}
+                                    {{ problem.assigned_user.username }}
+                                {% else %}
+                                    Unassigned
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if problem.resolved_user %}
+                                    {{ problem.resolved_user.username }}
+                                {% else %}
+                                    Unresolved
+                                {% endif %}
+                            </td>
+                            <td>
+                                <a href="{% url 'view_problem' problem.id %}" class="btn btn-view">View</a>
+                                <a href="{% url 'edit_problem' problem.id %}" class="btn btn-edit">Edit</a>
+                            </td>
+                        </tr>
+                    {% endif %}
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
